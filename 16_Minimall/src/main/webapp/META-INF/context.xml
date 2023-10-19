@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+   <Resource name="jdbc/OracleDB"
+    auth = "Container"
+    type="javax.sql.DataSource"
+    username="sqlid"
+    password="sqlpw"
+    driverClassName="oracle.jdbc.driver.OracleDriver"
+    factory = "org.apache.commons.dbcp.BasicDataSourceFactory"
+    url = "jdbc:oracle:thin:@localhost:1521:orcl"
+    maxActive="500"
+    maxIdle="100"/>
+</Context>
+<!-- 
+maxActive : 최대 커넥션 객체 수
+maxIdle : 최소 커넥션 객체 수
+ -->

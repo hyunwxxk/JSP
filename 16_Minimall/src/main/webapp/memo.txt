@@ -1,0 +1,108 @@
+
+drop sequence catseq ;
+drop table category purge ;
+
+create sequence catseq nocache ;
+create table category(
+	cnum 	number primary key, -- 카테고리순서
+	code 	varchar2(20) not null, -- 카테고리 코드(bread)
+	cname 	varchar2(50) not null -- 카테고리이름(빵)
+);
+
+drop sequence catprod ;
+drop table product purge ;
+
+col pname for a12
+col pcompany for a12
+col pimage for a12
+col pcontents for a12
+
+drop sequence catprod ;
+create sequence catprod nocache;
+create table product(
+	pnum int not null primary key, -- 상품순서
+	pname 		varchar2(50) not null, -- 상품명(슈크림)
+	pcategory_fk  	varchar2(20) not null, -- 카테고리코드+카테고리명(code+cname=breadsu)
+	pcompany 	varchar2(50), -- 롯데
+	pimage   		varchar2(30), -- a.jpg
+	pqty int default 0, -- 3
+	price int default 0, -- 100 
+	pspec varchar2(12), -- HIT
+	pcontents 	varchar2(300), -- 설명
+	point int default 0, -- 222
+	pinputdate 	varchar2(10) -- 2013-09-24
+);
+
+-- 회원 테이블 생성
+drop sequence memseq ;
+create sequence memseq nocache ;
+
+drop table members purge ;
+create table members(
+	no number primary key,
+	name varchar2(30) not null,
+	id varchar2(12) not null,
+	password varchar2(12),
+	ssn1 varchar2(10),
+	ssn2 varchar2(10),
+	email varchar2(20),
+	hp1 varchar2(10),
+	hp2 varchar2(10),
+	hp3 varchar2(20),
+	joindate varchar2(20)					
+);
+
+insert into members(no, name, id, password, ssn1, ssn2) 
+values(memseq.nextval, '어드민', 'admin', '1234', '111111', '2222222') ;
+insert into members(no, name, id, password, ssn1, ssn2) 
+values(memseq.nextval, '홍길동', 'hong', '5678', '333333', '4444444') ;
+commit;
+
+
+col name for  a12
+col id for a12
+col password for a12
+col ssn1 for a10
+col ssn2 for a10
+select no, name, id, password, ssn1, ssn2 from members ;
+
+
+
+-- 매출 주문 테이블
+drop sequence orderseq ;
+create sequence orderseq ;  
+
+drop table orders purge ;
+create table orders(
+	orderId number,
+	memno number,
+	pnum number,
+	qty number,
+	amount number
+);
+
+-- 게시판 테이블 만들기
+drop table board purge ;
+create table board(
+	num number not null primary key,
+	writer varchar2(10) not null,
+	email varchar2(10),
+	subject varchar2(20) not null,
+	passwd varchar2(12) not null,
+	reg_date date not null,
+	readcount int default 0,
+	ref number  default 0 not null,
+	re_step number default 0 not null,
+	re_level number default 0 not null,
+	content varchar2(50) not null,
+	ip varchar2(15)  not null
+);
+
+drop sequence board_seq ;
+create sequence board_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 10000
+nocache;
+
