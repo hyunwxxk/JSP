@@ -1,23 +1,24 @@
-<%@page import="my.shop.ProductDao"%>
 <%@page import="my.shop.ProductBean"%>
+<%@page import="my.shop.ProductDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- myshop/display/mall.jsp <br> -->
+<!-- mall_top.jsp(2)=>mall_cgList.jsp<br> -->
 
 <%@ include file="mall_top.jsp" %>
-
-<%
-	ProductDao pdao = ProductDao.getInstance(); 
-		String[] spec = {"HIT","NEW","BEST","NORMAL"};
-		for(int i=0;i<spec.length;i++){
-			ArrayList<ProductBean> plists = pdao.getSelectByPspec(spec[i]);
-		%>
+<h3>Welcom to My Mall</h3>
+	<%
+	String cname = request.getParameter("cgname");
+	String code = request.getParameter("code");
+	
+	ProductDao pdao = ProductDao.getInstance();  
+	ArrayList<ProductBean> plists = pdao.getSelectByCategory(code);  
+	%> 
 		<hr color = green width="80%">
-		<font color=red size=3><strong><%= spec[i] %></strong></font>
+		<font color=red size=3><strong><%= cname %></strong></font>
 		<hr color = green width="80%">
 		
 		<%if(plists.size()==0){%>
-				<b><%=spec[i] %>상품 없습니다</b><br><br><br>
+			<b><%=cname %>상품 없습니다</b><br><br><br>
 		<%
 		}else{
 		%>
@@ -37,8 +38,9 @@
 			%>
 					<td align="center">
 						<a href="mall_prodView.jsp?pnum=<%=pb.getPnum()%>">
-							<img  src="<%=imgPath%>" width="80" height="60"><br>
+							<img  src="<%=imgPath%>" width="150" height="150">
 						</a>
+						<br>
 						<%=pb.getPname() %><br>
 						<font color=red><%=pb.getPrice() %></font>원<br>
 						<font color=blue>[<%=pb.getPoint() %>]</font>points
@@ -52,6 +54,7 @@
 				</tr>
 				</table>
 		<% } // else 
-		} // for
 		%>
 <%@ include file="mall_bottom.jsp" %>
+
+

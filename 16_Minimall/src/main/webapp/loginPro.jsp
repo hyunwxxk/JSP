@@ -20,6 +20,8 @@ loginPro.jsp<br>
 			}else{ // 일반회원
 				viewPage = request.getContextPath() + "/myshop/display/mall.jsp";
 			}
+			session.setAttribute("memid", id); 
+			/* 여기까지 넘어온 id를 memid라는 이름으로 세션설정 : 하나의 웹 브라우저 안에서는 계속 사용이 가능하다 */ 
 		}else{ // 가입하지 않은 회원
 			viewPage = request.getContextPath() + "main.jsp";
 	
