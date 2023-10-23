@@ -13,7 +13,15 @@
 			return;
 		}
 		location.href="mall_cartAdd.jsp?pnum="+pnum+"&ovalue="+ovalue; // 상품번호, 주문수량을 넘김
-	}
+	} // goCart
+	
+	function goOrder(pnum){ /* 넘긴 번호를 받음 goOrder함수로 form의 액션을 설정가능 */
+		
+		document.f.action = "<%= request.getContextPath() %>/myshop/display/mall_order.jsp?pnum="+pnum;
+		document.f.submit(); // type이 submit인것처럼 동작 상품번호, 주문수량을 넘김
+		
+	} // goOrder
+	
 </script>
 <%
 	int pnum = Integer.parseInt(request.getParameter("pnum"));
@@ -51,7 +59,9 @@
 							</a>
 						</td>
 						<td>
+							<a href="javascript:goOrder('<%= pb.getPnum() %>')"> <!-- 함수로 번호를 하나 넘김 -->
 							<img src="../../img/orderbtn.gif" width="100" height="40">
+							</a>
 						</td>
 					</tr>
 				</table>

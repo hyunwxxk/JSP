@@ -59,7 +59,8 @@
 				<%= pb.getPname() %>
 				</td>
 				<td>
-					<form name="f" method="post">
+					<form name="f" method="post" action="mall_cartEdit.jsp">
+								<input type="hidden" name="pnum" value="<%= pb.getPnum() %>">
 								<input type="text" name="oqty" size="1" value="<%=pb.getPqty()%>">개
 							<input type="submit" value="수정">
 						</form>
@@ -73,7 +74,7 @@
 						[<%=pb.getPoint()*pb.getPqty() %>]point
 					</td>
 					<td>
-						<a>삭제</a>
+						<a href="mall_cartDel.jsp?pnum=<%= pb.getPnum() %>">삭제</a>
 					</td>
 				</tr>
 			<% 
@@ -85,8 +86,11 @@
 				총 적립 포인트 : [<%=sumPoint %>] point  
 			</td>
 			<td align="left" colspan="2">
-				<a href="#">[주문하기]</a> 
-				<a href="#">[계속 쇼핑]</a>
+				<a href="mall_order.jsp?pnum=00&oqty=00">[주문하기]</a>
+				<!-- mall_order에서 mall_prodView에서 즉시구매를 통해 넘기는 pnum과 oqty를 받아야 하지만
+				mall_cartList에 주문하기를 하는 경우도 mall_order로 넘어간다. mall_cartList에서는 넘기는 
+				값이 없기 때문에 에러가 발생한다. 그러므로 pnum과 oqty에 다른 제품, 수량에 영향을 받지 않는 00값을 담아 넘긴다.  -->
+				<a href="javascript:history.go(-2)">[계속 쇼핑]</a>
 			</td>
 		</tr>
 	</table>		

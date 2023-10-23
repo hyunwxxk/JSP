@@ -29,6 +29,7 @@ aplication 하나의 프로젝트 안에서는 객체 사용가능
 		location.href="mall.jsp";
 		</script>
 <%
+	return; // 주문수량이 초과하면 주문화면으로 넘어가지 못하도록 return사용
 	}
 	
 		mallCart.addProduct(pnum,ovalue); // 장바구니에 추가하는 메서드를 호출 (pnum상품 ovalue개 주문)
